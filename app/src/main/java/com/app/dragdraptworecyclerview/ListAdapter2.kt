@@ -15,18 +15,16 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.list_row.view.*
 
 
-internal class ListAdapter(
+internal class ListAdapter2(
     var list: List<ModelClass>,
     private val listener: Listener?,
     private val checkListner: CheckListner?,
     val context: Context
 ) :
-    RecyclerView.Adapter<ListAdapter.ListViewHolder>(), View.OnTouchListener, CheckListner {
+    RecyclerView.Adapter<ListAdapter2.ListViewHolder>(), View.OnTouchListener, CheckListner {
     var ischeck = false
-    var pos = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View = LayoutInflater.from(
             parent.context
@@ -37,20 +35,8 @@ internal class ListAdapter(
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.text!!.text = list[position].name.toString()
         holder.frameLayout!!.tag = position
-
-
-
-        Log.e("fistruncode", list.toString())
-
-
         holder.frameLayout!!.setOnTouchListener(this)
         holder.frameLayout!!.setOnDragListener(DragListener(listener!!, checkListner!!, context))
-
-
-//        if (list[position].isdrag){
-//
-//        }
-
 
         if (list[position].isclick) {
             holder.frameLayout!!.setBackgroundColor(Color.GREEN)
@@ -58,18 +44,11 @@ internal class ListAdapter(
         } else {
 
             Handler(Looper.getMainLooper()).postDelayed({
-                if (!list[position].isdrag){
-                    holder.frameLayout!!.setBackgroundColor(Color.GRAY)
-                }else{
-                    holder.frameLayout!!.setBackgroundColor(context.resources.getColor(R.color.purple_700))
-                }
-
-            }, 500)
+                holder.frameLayout!!.setBackgroundColor(context.resources.getColor(R.color.purple_700))
+            },500)
             holder.frameLayout!!.setBackgroundColor(context.resources.getColor(R.color.red))
 
         }
-
-
     }
 
     override fun getItemCount(): Int {
@@ -77,27 +56,19 @@ internal class ListAdapter(
     }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
-
-
-        val tag = v.tag
-        if (list[tag as Int].isdrag) {
-            pos = tag
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    val data = ClipData.newPlainText("", "")
-                    val shadowBuilder = View.DragShadowBuilder(v)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        v.startDragAndDrop(data, shadowBuilder, v, 0)
-                    } else {
-                        v.startDrag(data, shadowBuilder, v, 0)
-                    }
-                    return true
-                }
-
-            }
+        when (event.action) {
+            //for drag and drop from right to left
+//            MotionEvent.ACTION_DOWN -> {
+//                val data = ClipData.newPlainText("", "")
+//                val shadowBuilder = View.DragShadowBuilder(v)
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    v.startDragAndDrop(data, shadowBuilder, v, 0)
+//                } else {
+//                    v.startDrag(data, shadowBuilder, v, 0)
+//                }
+//                return true
+//            }
         }
-
-
         return false
     }
 
@@ -116,7 +87,10 @@ internal class ListAdapter(
     internal inner class ListViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 
         var text: TextView? = itemView?.findViewById(R.id.text)
+
+
         var frameLayout: FrameLayout? = itemView?.findViewById(R.id.frame_layout_item)
+
     }
 
     override fun isMatch(isture: Boolean) {

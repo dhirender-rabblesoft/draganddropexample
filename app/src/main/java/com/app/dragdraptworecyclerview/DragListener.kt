@@ -8,7 +8,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class DragListener internal constructor(listener: Listener,checkListner: CheckListner, val context: Context) : View.OnDragListener {
+class DragListener internal constructor(
+    listener: Listener,
+    checkListner: CheckListner,
+    val context: Context
+) : View.OnDragListener {
     private var isDropped = false
     private val listener: Listener = listener
     private val checkListner: CheckListner = checkListner
@@ -42,116 +46,105 @@ class DragListener internal constructor(listener: Listener,checkListner: CheckLi
                             val adapterSource: ListAdapter? = source.adapter as ListAdapter?
                             val positionSource = viewSource.getTag() as Int
                             val sourceId = source.id
-
                             val list: ModelClass = adapterSource?.list?.get(positionSource)!!
                             val listSource: ArrayList<ModelClass> =
                                 adapterSource.list as ArrayList<ModelClass>
-                            listSource.removeAt(positionSource)
-                            adapterSource.updateList(listSource)
-                            Log.e("adaptersource-- ",adapterSource.toString())
+                            listSource[positionSource].isdrag = false
+                            Keys.postion = positionSource
+
+                            Log.e("fistruncode", "111111111111111111")
+
+//                            listSource.removeAt(positionSource)
+
+//                            adapterSource.updateList(listSource)
+                            Log.e("adaptersource-- ", adapterSource.toString())
                             adapterSource.notifyDataSetChanged()
 
-
-                            val adapterTarget: ListAdapter? = target.adapter as ListAdapter?
+                            val adapterTarget: ListAdapter2? = target.adapter as ListAdapter2?
                             val customListTarget: MutableList<ModelClass> =
                                 adapterTarget?.list as MutableList<ModelClass>
+
+
                             if (positionTarget >= 0) {
-
-
-
-                                    when(list.name){
-                                       'A' -> {
-                                           if (positionTarget.equals(0)){
-                                               val toast = Toast.makeText(context, "Hello Javatpoint", Toast.LENGTH_LONG)
-                                               toast.show()
-                                           }
-
+                                when (list.name) {
+                                    'A' -> {
+                                        if (positionTarget.equals(0)) {
+                                            val toast = Toast.makeText(
+                                                context,
+                                                "Hello Javatpoint",
+                                                Toast.LENGTH_LONG
+                                            )
+                                            toast.show()
                                         }
 
-                                        'B' -> {
-                                           if (positionTarget.equals(1)){
-                                               val toast = Toast.makeText(context, "Hello Javatpoint", Toast.LENGTH_LONG)
-                                               toast.show()
+                                    }
+
+                                    'B' -> {
+                                        if (positionTarget.equals(1)) {
+                                            val toast = Toast.makeText(
+                                                context,
+                                                "Hello Javatpoint",
+                                                Toast.LENGTH_LONG
+                                            )
+                                            toast.show()
 //                                               customListTarget.add(positionTarget, list)
-                                           }
-
                                         }
 
-                                        'C' -> {
-                                           if (positionTarget.equals(2)){
-                                               val toast = Toast.makeText(context, "Hello Javatpoint", Toast.LENGTH_LONG)
-                                               toast.show()
+                                    }
+
+                                    'C' -> {
+                                        if (positionTarget.equals(2)) {
+                                            val toast = Toast.makeText(
+                                                context,
+                                                "Hello Javatpoint",
+                                                Toast.LENGTH_LONG
+                                            )
+                                            toast.show()
 //                                               customListTarget.add(positionTarget, list)
-                                           }
-
                                         }
-                                        'D' -> {
-                                           if (positionTarget.equals(3)){
-                                               val toast = Toast.makeText(context, "Hello Javatpoint", Toast.LENGTH_LONG)
-                                               toast.show()
-                                               checkListner.isMatch(true)
-                                               customListTarget[positionTarget].isclick = true
-                                               Keys.isclick = true
+
+                                    }
+                                    'D' -> {
+                                        if (positionTarget.equals(3)) {
+                                            Keys.postion = positionSource
+                                            val toast = Toast.makeText(
+                                                context,
+                                                "Hello Javatpoint",
+                                                Toast.LENGTH_LONG
+                                            )
+                                            toast.show()
+                                            listSource[positionSource].isdrag = false
+                                            checkListner.isMatch(true)
+                                            customListTarget[positionTarget].isclick = true
+                                            Keys.isclick = true
 //                                               customListTarget.add(positionTarget, list)
-                                           }else{
-                                               listSource.add(list)
-                                               adapterSource.updateList(listSource)
-                                               listener.setpostion(true)
-                                               checkListner.isMatch(false)
-                                               customListTarget[positionTarget].isclick = false
-                                               Keys.isclick = false
-                                               Log.e("cutomlisttart-- ","erererewrwerewrwerwfcewfdsfds")
-
-                                           }
-
-                                        }
-                                        else -> {
-
+                                        } else {
+//
+                                            listSource[positionSource].isdrag = false
+                                            Keys.postion = positionSource
                                             listSource.add(list)
                                             adapterSource.updateList(listSource)
-                                            Log.e("cutomlisttart-- ","erererewrwerewrwerwfcewfdsfds")
+                                            listener.setpostion(true)
+                                            checkListner.isMatch(false)
+                                            customListTarget[positionTarget].isclick = false
+                                            Keys.isclick = false
+                                            Log.e(
+                                                "cutomlisttart-- ",
+                                                "erererewrwerewrwerwfcewfdsfds"
+                                            )
+
                                         }
+
                                     }
+                                    else -> {
 
-//                                if (positionTarget.equals(2)){
-//                                    Log.e("doublcatevalue-- ","rrrrrrrrrr")
-//                                    customListTarget.add(positionTarget, list)
-//                                } else{
-//                                    Log.e("doublcatevalue-- ","fffffff")
-//                                }
-
-                                if (positionSource.equals(positionTarget)){
-                                    customListTarget.forEach {
-
-                                        if (it.equals(list)){
-
-                                            Log.e("doublcatevalue-- ",customListTarget.toString())
-                                        }else{
-                                            Log.e("doublcatevalueNOT-- ",customListTarget.toString())
-                                        }
+                                        listSource.add(list)
+                                        adapterSource.updateList(listSource)
+                                        Log.e("cutomlisttart-- ", "erererewrwerewrwerwfcewfdsfds")
                                     }
-
-
                                 }
-
-
-                                Log.e("customlisttarget-- ",customListTarget.toString())
                             } else {
-
-
-                                customListTarget.forEach {
-
-
-                                    if (it.equals(list)){
-
-                                        Log.e("doublcatevalue-- ",customListTarget.toString())
-                                    }else{
-                                        Log.e("doublcatevalueNOT-- ",customListTarget.toString())
-                                    }
-                                }
-
                                 customListTarget.add(list)
-                                Log.e("cutomlisttart-- ",customListTarget.toString())
                             }
                             adapterTarget.updateList(customListTarget)
                             adapterTarget.notifyDataSetChanged()

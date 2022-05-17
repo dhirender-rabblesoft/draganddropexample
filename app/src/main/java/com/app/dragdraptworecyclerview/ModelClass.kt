@@ -1,3 +1,3 @@
 package com.app.dragdraptworecyclerview
 
-data class ModelClass(val name:Char,var isclick:Boolean =false)
+data class ModelClass(val name:Char,var isclick:Boolean =false,var isdrag:Boolean =true)

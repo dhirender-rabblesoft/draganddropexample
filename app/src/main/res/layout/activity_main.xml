@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+
+    android:orientation="horizontal">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
+        android:visibility="gone"
         android:text="Top RecyclerView"
         android:textSize="25sp" />
 
@@ -27,7 +28,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTop"
-        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         />
@@ -35,6 +37,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:visibility="gone"
         android:background="#cccccc" />
 
     <TextView
@@ -42,13 +45,15 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="20dp"
+        android:visibility="gone"
         android:paddingBottom="10dp"
         android:text="Bottom RecyclerView"
         android:textSize="25sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBottom"
-        android:layout_width="match_parent"
+         android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
@@ -61,4 +66,4 @@
         android:textSize="20sp"
         android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), Listener,CheckListner {
 
     private fun initTopRecyclerView() {
         rvTop!!.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.HORIZONTAL, false
+            this, LinearLayoutManager.VERTICAL, false
         )
         val topList: MutableList<ModelClass> = ArrayList()
         topList.add(ModelClass('A'))
@@ -34,13 +34,14 @@ class MainActivity : AppCompatActivity(), Listener,CheckListner {
         topList.add(ModelClass('D'))
         val topListAdapter = ListAdapter(topList, this,this,this)
         rvTop!!.adapter = topListAdapter
+
         tvEmptyListTop!!.setOnDragListener(topListAdapter.dragInstance)
         rvTop!!.setOnDragListener(topListAdapter.dragInstance)
     }
 
     private fun initBottomRecyclerView() {
         rvBottom!!.layoutManager = LinearLayoutManager(
-            this, LinearLayoutManager.HORIZONTAL, false
+            this, LinearLayoutManager.VERTICAL, false
         )
         val bottomList: MutableList<ModelClass> = ArrayList()
         bottomList.add(ModelClass('A'))
@@ -49,10 +50,8 @@ class MainActivity : AppCompatActivity(), Listener,CheckListner {
         bottomList.add(ModelClass('D'))
 
 
-        val bottomListAdapter = ListAdapter(bottomList, this,this,this)
+        val bottomListAdapter = ListAdapter2(bottomList, this,this,this)
         rvBottom!!.adapter = bottomListAdapter
-        tvEmptyListBottom!!.setOnDragListener(bottomListAdapter.dragInstance)
-        rvBottom!!.setOnDragListener(bottomListAdapter.dragInstance)
     }
 
     override fun setEmptyListTop(visibility: Boolean) {
